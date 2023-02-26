@@ -125,7 +125,7 @@ export default class CarAddNew extends Component<iProps, iState> {
                                 className="sm-textbox w-100"
                                 maxLength={256}
                                 onChange={(e: any) => {
-                                    m_CAR.categorY_ID = e.target.value;
+                                    m_CAR.platE_NUMBER = e.target.value;
                                     this.setState({})
                                 }}
                             />
