@@ -63,15 +63,15 @@ export default class LeftMenu extends Component<iProps, iState> {
 
                         <div className="sub-menu active">
                             <div className="column">
-                                <div className="sub-menu-top"><b>BB</b></div>
+                                <div className="sub-menu-top"><b>BooKiNG BiKe</b></div>
                                 {
                                     (isshowMenu === true) && (
                                         <>
                                             <div className="sub-menu-title">
-                                                <Link to={`/${RouteUrls.Admin}/${RouteUrls.Order}/${RouteUrls.Default}`} target={''}><b>DANH SÁCH ORDER</b></Link>
+                                                {/*<Link to={`/${RouteUrls.Admin}/${RouteUrls.Order}/${RouteUrls.Default}`} target={''}><b>DANH SÁCH ORDER</b></Link>*/}
                                             </div>
                                             <div className="sub-menu-title">
-                                                <Link to={`/${RouteUrls.Admin}/${RouteUrls.Car}/${RouteUrls.Default}`} target={''}><b>DANH SÁCH CARS</b></Link>
+                                                <Link to={`/${RouteUrls.Admin}/${RouteUrls.Car}/${RouteUrls.Default}`} target={''}><b>DANH SÁCH XE</b></Link>
                                             </div>
                                         </>
                                     )

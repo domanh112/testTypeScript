@@ -18,6 +18,7 @@ interface iProp {
     // Add Blank item
     addBlankItem?: boolean;
     blankItemText?: string;
+    placeholder?: string;
 
     // Group
     dataOrderBy?: number;
@@ -238,6 +239,7 @@ export default class ComboBox extends Component<iProp, iState> {
                 style={this.props.style}
                 addBlankItem={this.props.addBlankItem}
                 blankItemText={this.props.blankItemText ?? "----------------- CHỌN -----------------"}
+                placeHolder={this.props.placeholder ?? "--- Tìm và chọn ---"}
                 filter={true}
                 onChange={(value, item) => {
                     if (this.props.onChange) {

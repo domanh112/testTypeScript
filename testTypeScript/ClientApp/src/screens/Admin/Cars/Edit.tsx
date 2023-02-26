@@ -19,18 +19,18 @@ interface iProps extends iBaseProps {
 }
 
 interface iState extends iBaseState {
-    M_CAR: M_CAR;
-    M_CAR_CATEGORYs: Array<M_CAR_CATEGORY>;
-    CAR_ID?: number;
+    m_CAR: M_CAR;
+    lstM_CAR_CATEGORY: Array<M_CAR_CATEGORY>;
+    caR_ID?: number;
 }
 
 export default class CarEdit extends Component<iProps, iState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            M_CAR: new M_CAR,
-            M_CAR_CATEGORYs: [],
-            CAR_ID: parseInt(this.props.match.params.id)
+            m_CAR: new M_CAR,
+            lstM_CAR_CATEGORY: [],
+            caR_ID: parseInt(this.props.match.params.id)
         }
     }
 
@@ -47,20 +47,20 @@ export default class CarEdit extends Component<iProps, iState> {
 
     async setUpEdit() {
         const request = new M_CARDTO();
-        request.CAR_ID = this.state.CAR_ID;
+        request.caR_ID = this.state.caR_ID;
         const response = await HttpUtils.post<M_CARDTO>(
             ApiUrl.Car_Execute + "/SetupEditForm",
             JSON.stringify(request)
         );
         this.setState({
-            M_CAR: response.M_CAR!,
-            M_CAR_CATEGORYs: response.M_CAR_CATEGORYs!,
+            m_CAR: response.m_CAR!,
+            lstM_CAR_CATEGORY: response.lstM_CAR_CATEGORY!,
         })
     }
 
     async saveData() {
         const request = new M_CARDTO();
-        request.M_CAR = this.state.M_CAR;
+        request.m_CAR = this.state.m_CAR;
         const response = await HttpUtils.post<M_CARDTO>(
             ApiUrl.Car_Execute + "/Update",
             JSON.stringify(request)
@@ -75,36 +75,12 @@ export default class CarEdit extends Component<iProps, iState> {
             LoadingModal.showLoading();
 
             await this.saveData();
-            this.props.history.push(`../${RouteUrls.Display}/${this.state.CAR_ID}`)
+            this.props.history.push(`../${RouteUrls.Display}/${this.state.caR_ID}`)
         }
         catch (ex) {
             ErrorHandler.HandlerException(ex);
         }
         LoadingModal.hideLoading();
-    }
-
-    async delCar() {
-        try {
-            if (FieldValidator.HasError() === true) {
-                throw SMXException.CreateDataInvalidException();
-            }
-            LoadingModal.showLoading();
-
-            await this.staDelete();
-            this.props.history.push(`../${RouteUrls.Default}`)
-        }
-        catch (ex) {
-            ErrorHandler.HandlerException(ex);
-        }
-        LoadingModal.hideLoading();
-    }
-    async staDelete() {
-        const request = new M_CARDTO();
-        request.M_CAR = this.state.M_CAR;
-        const response = await HttpUtils.post<M_CARDTO>(
-            ApiUrl.Car_Execute + "/Delete",
-            JSON.stringify(request)
-        );
     }
 
     isInitPage: boolean = true;
@@ -115,33 +91,24 @@ export default class CarEdit extends Component<iProps, iState> {
             return (<></>)
         }
 
-        const { M_CAR, M_CAR_CATEGORYs } = this.state;
+        const { m_CAR, lstM_CAR_CATEGORY } = this.state;
 
         return (
             <div className="layout-main box-grid-custom">
                 <div className="toolbar">
                     <div className="p-toolbar-group-left">
-                        <h1>CHỈNH SỬA CAR</h1>
+                        <h1>CHỈNH SỬA XE</h1>
                     </div>
 
                     <div className="p-toolbar-group-right">
-                        <SMButton className={'sm-button'} onClick={() => {
+                        <SMButton className={'sm-button-link'} onClick={() => {
 
                             this.onPressSave();
                         }}>
                             <i className={`${Icons.save}`} /> {' Lưu'}
                         </SMButton>
 
-                        <SMButton className={'sm-delete-button'} onClick={() => {
-                            DialogMessage.showConfirm("Xóa XE", "Bạn có chắc muốn xóa xe này không?",
-                                () => {
-                                    this.delCar();
-                                })
-                        }}>
-                            <i className={`${Icons.trash}`} /> {' Xóa'}
-                        </SMButton>
-
-                        <Link className={'sm-button-link margin-left-5'} to={`../${RouteUrls.Display}/${this.state.CAR_ID}`}>
+                        <Link className={'sm-button-link'} to={`../${RouteUrls.Display}/${this.state.caR_ID}`}>
                             <i className={`${Icons.exit}`} /> {' Thoát'}
                         </Link>
                     </div>
@@ -155,9 +122,9 @@ export default class CarEdit extends Component<iProps, iState> {
                             <TextBox
                                 className="sm-textbox w-100"
                                 maxLength={256}
-                                value={M_CAR.PLATE_NUMBER || ''}
+                                value={m_CAR.platE_NUMBER || ''}
                                 onChange={(e: any) => {
-                                    M_CAR.PLATE_NUMBER = e.target.value;
+                                    m_CAR.platE_NUMBER = e.target.value;
                                     this.setState({})
                                 }}
                             />
@@ -166,14 +133,14 @@ export default class CarEdit extends Component<iProps, iState> {
                         <div className="p-col-4">
                             <span className="title-info">LOẠI XE</span>
                             <ComboBox
-                                dataSource={M_CAR_CATEGORYs}
-                                textField="NAME"
-                                valueField="CAR_CATEGORY_ID"
+                                dataSource={lstM_CAR_CATEGORY}
+                                textField="name"
+                                valueField="caR_CATEGORY_ID"
                                 className="sm-combobox w-100"
                                 addBlankItem={true}
-                                selectedValue={Utility.GetNumberString(M_CAR.CATEGORY_ID) || ''}
+                                selectedValue={Utility.GetNumberString(m_CAR.categorY_ID) || ''}
                                 onChange={(e) => {
-                                    M_CAR.CATEGORY_ID = parseInt(e)
+                                    m_CAR.categorY_ID = parseInt(e)
                                     this.setState({});
                                 }} />
                         </div>
@@ -183,9 +150,9 @@ export default class CarEdit extends Component<iProps, iState> {
                             <TextBox
                                 className="sm-textbox w-100"
                                 maxLength={256}
-                                value={M_CAR.COLOR || ''}
+                                value={m_CAR.color || ''}
                                 onChange={(e: any) => {
-                                    M_CAR.COLOR = e.target.value;
+                                    m_CAR.color = e.target.value;
                                     this.setState({})
                                 }}
                             />
@@ -198,9 +165,9 @@ export default class CarEdit extends Component<iProps, iState> {
                             <TextBox
                                 className="sm-textbox w-100"
                                 maxLength={256}
-                                value={M_CAR.DESCRIPTION || ''}
+                                value={m_CAR.description || ''}
                                 onChange={(e: any) => {
-                                    M_CAR.DESCRIPTION = e.target.value;
+                                    m_CAR.description = e.target.value;
                                     this.setState({})
                                 }}
                             />
@@ -210,10 +177,10 @@ export default class CarEdit extends Component<iProps, iState> {
                             <span className="title-info">GIÁ THUÊ</span>
                             <SMNumericBox
                                 className="sm-numericbox w-100"
-                                value={M_CAR.PRICE}
+                                value={m_CAR.price}
                                 onChange={(e) => {
-                                    M_CAR.PRICE = e;
-                                    this.setState({ M_CAR })
+                                    m_CAR.price = e;
+                                    this.setState({ })
                                 }}
                             />
                         </div>
@@ -224,13 +191,13 @@ export default class CarEdit extends Component<iProps, iState> {
                             <TextBox
                                 className="sm-textbox w-100"
                                 maxLength={256}
-                                value={M_CAR.URL || ''}
+                                value={m_CAR.url || ''}
                                 onChange={(e: any) => {
-                                    M_CAR.URL = e.target.value;
+                                    m_CAR.url = e.target.value;
                                     this.setState({})
                                 }}
                             />
-                            <img className='w-100' src={M_CAR.URL} />
+                            <img className='w-100' src={m_CAR.url} />
                         </div>
                     </div>
                 </div>

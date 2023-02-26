@@ -1,6 +1,6 @@
 class EnvConfig {
     static getApiHost(): string {
-        return "https://localhost:44368";
+        return "https://localhost:44347";
         return process.env.REACT_APP_API_HOST!;
     }
 }

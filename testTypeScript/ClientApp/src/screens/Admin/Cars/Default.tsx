@@ -18,11 +18,14 @@ import { RouteUrls } from "../../RouteManager";
 interface iProp extends iBaseProps { }
 interface iState extends iBaseState {
     lstM_CAR: Array<M_CAR>;
-    M_CARs: Array<M_CAR>;
-    M_CAR_CATEGORYs: Array<M_CAR_CATEGORY>;
-    Filter: M_CARFilter;
-    PagingInfo: PagingInfo;
+    m_CARs: Array<M_CAR>;
+    lstM_CAR_CATEGORY: Array<M_CAR_CATEGORY>;
 
+    Filter: M_CARFilter;
+
+    caR_ID?: number;
+
+    //CAR_CAT_ID?: number;
 }
 
 export default class CarDefault extends React.Component<iProp, iState> {
@@ -32,9 +35,8 @@ export default class CarDefault extends React.Component<iProp, iState> {
         this.state = {
             Filter: new M_CARFilter(),
             lstM_CAR: [],
-            M_CARs: [],
-            M_CAR_CATEGORYs: [],
-            PagingInfo: new PagingInfo(),
+            m_CARs: [],
+            lstM_CAR_CATEGORY: [],
 
         };
     }
@@ -59,8 +61,10 @@ export default class CarDefault extends React.Component<iProp, iState> {
 
         this.setState({
             lstM_CAR: response.lstM_CAR!,
-            M_CAR_CATEGORYs: response.M_CAR_CATEGORYs!
-        }, async () => { await this.loadData(0) })
+            lstM_CAR_CATEGORY: response.lstM_CAR_CATEGORY!
+        },
+            async () => { await this.loadData(0) }
+        )
     }
 
     async doSearchAction() {
@@ -77,15 +81,13 @@ export default class CarDefault extends React.Component<iProp, iState> {
     async loadData(pageIndex: number) {
         const request = new M_CARDTO();
         var filter = { ...this.state.Filter! };
-        filter.PageIndex = pageIndex;
         request.Filter = filter;
         const response = await HttpUtils.post<M_CARDTO>(
             ApiUrl.Car_Execute + "/SearchData",
             JSON.stringify(request)
         );
         this.setState({
-            M_CARs: response.M_CARs! ?? [],
-            PagingInfo: response.PagingInfo!,
+            m_CARs: response.m_CARs! ?? [],
         },
             // async () => { await this.loadData(0) }
         )
@@ -113,13 +115,13 @@ export default class CarDefault extends React.Component<iProp, iState> {
             return <></>;
         }
 
-        const { lstM_CAR, M_CARs, Filter, M_CAR_CATEGORYs, PagingInfo } = this.state!;
+        const { lstM_CAR, m_CARs, Filter, lstM_CAR_CATEGORY, caR_ID } = this.state!;
 
         return (
             <div className="layout-main box-grid-custom">
                 <div className="toolbar">
                     <div className="p-toolbar-group-left">
-                        <h1>DANH SÁCH CARS</h1>
+                        <h1>DANH SÁCH XE</h1>
                     </div>
                     <div className="p-toolbar-group-right" style={{ paddingRight: '13px' }}>
                         <Link className={'sm-button-link'} to={`./${RouteUrls.AddNew}`}>
@@ -143,14 +145,15 @@ export default class CarDefault extends React.Component<iProp, iState> {
                                 <th>LOẠI XE</th>
                                 <td>
                                     <ComboBox
-                                        dataSource={M_CAR_CATEGORYs}
-                                        textField="NAME"
-                                        valueField="CAR_CATEGORY_ID"
+                                        dataSource={lstM_CAR_CATEGORY}
+                                        textField="name"
+                                        valueField="caR_CATEGORY_ID"
                                         className="sm-combobox w-100"
                                         addBlankItem={true}
+                                        blankItemText={"-------Tìm và chọn-------"}
                                         selectedValue={`${Filter.CAR_CATEGORY_ID || ''}`}
-                                        onChange={(e) => {
-                                            Filter.CAR_CATEGORY_ID = parseInt(e)
+                                        onChange={(val: any) => {
+                                            Filter.CAR_CATEGORY_ID = Number(val)
                                             this.setState({});
                                         }} />
                                 </td>
@@ -159,13 +162,14 @@ export default class CarDefault extends React.Component<iProp, iState> {
                                 <td>
                                     <ComboBox
                                         dataSource={lstM_CAR}
-                                        textField="PLATE_NUMBER"
-                                        valueField="CAR_ID"
+                                        textField="platE_NUMBER"
+                                        valueField="caR_ID"
                                         className="sm-combobox w-100"
                                         addBlankItem={true}
+                                        blankItemText={"-------Tìm và chọn-------"}
                                         selectedValue={`${Filter.CAR_ID || ''}`}
-                                        onChange={(e) => {
-                                            Filter.CAR_ID = parseInt(e)
+                                        onChange={(val: any) => {
+                                            Filter.CAR_ID = Number(val)
                                             this.setState({});
                                         }} />
                                 </td>
@@ -215,41 +219,41 @@ export default class CarDefault extends React.Component<iProp, iState> {
 
                             <tbody>
                                 {
-                                    M_CARs.map((item, index) => {
+                                    m_CARs?.map((item, index) => {
                                         return (
-                                            <tr key={item.CAR_ID}>
+                                            <tr key={item.caR_ID}>
                                                 <td className="grid-center">
-                                                    {PagingInfo?.PageSize! * PagingInfo?.PageIndex! + index + 1}
+                                                    {index + 1}
                                                 </td>
 
                                                 <td>
-                                                    <Link to={`./${RouteUrls.Display}/${item.CAR_ID}`} >
-                                                        {item.PLATE_NUMBER}
+                                                    <Link to={`./${RouteUrls.Display}/${item.caR_ID}`} >
+                                                        {item.platE_NUMBER}
                                                     </Link>
                                                 </td>
 
                                                 <td>
-                                                    {item.BIKE_NAME}
+                                                    {item.categorY_NAME}
                                                 </td>
 
                                                 <td>
-                                                    {item.COLOR}
+                                                    {item.color}
                                                 </td>
 
                                                 <td>
-                                                    {item.DESCRIPTION}
+                                                    {item.description}
                                                 </td>
 
                                                 <td>
-                                                    {item.PRICE}
+                                                    {item.price}
                                                 </td>
 
                                                 <td className="grid-center">
-                                                    {item.CREATED_BY}
+                                                    {item.createD_BY}
                                                 </td>
 
                                                 <td style={{ height: 90 }}>
-                                                    <img className='w-100' src={item.URL} />
+                                                    <img className='w-100' src={item.url} />
                                                 </td>
                                             </tr>
                                         )
@@ -257,9 +261,6 @@ export default class CarDefault extends React.Component<iProp, iState> {
                                 }
                             </tbody>
                         </table>
-                    </div>
-                    <div className="sm-textbox w-100" >
-                        <PagingUC showResult={true} pagingInfo={PagingInfo!} onPageIndexChange={(pageIndex) => this.loadData(pageIndex)}></PagingUC>
                     </div>
                 </div>
             </div >

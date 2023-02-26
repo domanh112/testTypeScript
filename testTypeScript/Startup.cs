@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using testTypeScript.Models;
+using testTypeScript.Service;
 
 namespace testTypeScript
 {
@@ -20,7 +23,9 @@ namespace testTypeScript
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddScoped<IM_Service_Order_Service, Service_Order_Service>();
+            services.AddScoped<IM_Car_Service, M_Car_Service>();
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("ConStr")));
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

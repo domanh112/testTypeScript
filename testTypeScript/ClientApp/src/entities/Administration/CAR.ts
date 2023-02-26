@@ -1,22 +1,22 @@
 
 export default class CAR {
 
-    public CAR_ID?: number;
-    public CATEGORY_ID?: number;
-    public COLOR?: string;
-    public DESCRIPTION?: string;
-    public URL?: string;
-    public PLATE_NUMBER?: string;
-    public PRICE?: number;
-    public DELETED?: number;
+    public caR_ID?: number;
+    public categorY_ID?: number;
+    public color?: string;
+    public description?: string;
+    public url?: string;
+    public platE_NUMBER?: string;
+    public price?: number;
+    public deleted?: number;
     public VERSION?: number;
-    public CREATED_BY?: string;
-    public CREATED_DTG?: Date;
-    public UPDATED_BY?: string;
-    public UPDATED_DTG?: Date;
+    public createD_BY?: string;
+    public createD_DTG?: Date;
+    public updateD_BY?: string;
+    public updateD_DTG?: Date;
 
     // Extend member
-    public BIKE_NAME?: string;
+    public categorY_NAME?: string;
     public CAR_CATEGORY_ID?: number;
 
 }
