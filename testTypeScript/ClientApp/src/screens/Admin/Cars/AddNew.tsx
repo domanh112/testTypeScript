@@ -125,7 +125,7 @@ export default class CarAddNew extends Component<iProps, iState> {
                                 className="sm-textbox w-100"
                                 maxLength={256}
                                 onChange={(e: any) => {
-                                    m_CAR.platE_NUMBER = e.target.value;
+                                    m_CAR.platE_NUMBER  = e.target.value;
                                     this.setState({})
                                 }}
                             />
@@ -179,7 +179,7 @@ export default class CarAddNew extends Component<iProps, iState> {
                                 value={m_CAR.price}
                                 onChange={(e) => {
                                     m_CAR.price = e;
-                                    this.setState({ })
+                                    this.setState({})
                                 }}
                             />
                         </div>
