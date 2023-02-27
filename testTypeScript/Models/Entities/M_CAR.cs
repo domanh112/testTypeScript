@@ -14,10 +14,12 @@ namespace testTypeScript.Models.Entities
         [AllowNull]
         public string COLOR { get; set; }
         [AllowNull]
+        [MaxLength(256)]
         public string DESCRIPTION { get; set; }
         [AllowNull]
         public string URL { get; set; }
         [Required]
+        [MaxLength(10)]
         public string PLATE_NUMBER { get; set; }
         [Required]
         public int PRICE { get; set; }

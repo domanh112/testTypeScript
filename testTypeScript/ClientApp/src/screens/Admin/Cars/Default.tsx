@@ -192,7 +192,7 @@ export default class CarDefault extends React.Component<iProp, iState> {
                     </table>
 
                     <div className="h-datatable layout-fixed allow-fixheader">
-                        <table style={{ width: "100%" }} >
+                        <table style={{ width: "100%" }} className="allow-scroll">
                             <colgroup>
                                 <col width="5%" />
                                 <col width="10%" />

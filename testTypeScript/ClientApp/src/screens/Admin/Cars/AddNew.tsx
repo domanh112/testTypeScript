@@ -120,7 +120,13 @@ export default class CarAddNew extends Component<iProps, iState> {
                     <div className="p-grid">
 
                         <div className="p-col-4">
-                            <span className="title-info">BIỂN SỐ XE</span>
+                            <span className="title-info required">BIỂN SỐ XE</span>
+                            <FieldValidator
+                                value={m_CAR.platE_NUMBER}
+                                className="validator"
+                                required={true}
+                                requiredMessage={SMX.ValidateMessage.RequiredField}
+                            />
                             <TextBox
                                 className="sm-textbox w-100"
                                 maxLength={256}
@@ -132,7 +138,13 @@ export default class CarAddNew extends Component<iProps, iState> {
                         </div>
 
                         <div className="p-col-4">
-                            <span className="title-info">LOẠI XE</span>
+                            <span className="title-info required">LOẠI XE</span>
+                            <FieldValidator
+                                value={m_CAR.categorY_ID}
+                                className="validator"
+                                required={true}
+                                requiredMessage={SMX.ValidateMessage.RequiredField}
+                            />
                             <ComboBox
                                 dataSource={lstM_CAR_CATEGORY}
                                 textField="name"
@@ -173,7 +185,13 @@ export default class CarAddNew extends Component<iProps, iState> {
                         </div>
 
                         <div className="p-col-4">
-                            <span className="title-info">GIÁ THUÊ</span>
+                            <span className="title-info required">GIÁ THUÊ</span>
+                            <FieldValidator
+                                value={m_CAR.price}
+                                className="validator"
+                                required={true}
+                                requiredMessage={SMX.ValidateMessage.RequiredField}
+                            />
                             <SMNumericBox
                                 className="sm-numericbox w-100"
                                 value={m_CAR.price}

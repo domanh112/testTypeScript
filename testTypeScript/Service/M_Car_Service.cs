@@ -1,17 +1,12 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using testTypeScript.Models;
 using testTypeScript.Models.Entities;
+using testTypeScript.Service.FluentValidation;
 using testTypeScript.Service.Interface;
 using testTypeScript.ShareComponent;
 using testTypeScript.ShareComponent.Filter;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace testTypeScript.Service
 {
@@ -44,9 +39,9 @@ namespace testTypeScript.Service
                             URL = car.URL,
                             CREATED_DTG = car.CREATED_DTG,
                             CATEGORY_ID = car.CATEGORY_ID,
-                            VERSION= car.VERSION,
-                            DELETED= car.DELETED,
-                            UPDATED_BY= car.UPDATED_BY,
+                            VERSION = car.VERSION,
+                            DELETED = car.DELETED,
+                            UPDATED_BY = car.UPDATED_BY,
                             UPDATED_DTG = car.UPDATED_DTG,
                         };
                 M_CAR M_CAR = CAR.FirstOrDefault<M_CAR>();
@@ -57,7 +52,6 @@ namespace testTypeScript.Service
             {
                 throw;
             }
-            return null;
         }
 
         public List<M_CAR> Search_Data(M_CarFilter Filter)
@@ -90,7 +84,6 @@ namespace testTypeScript.Service
             {
                 throw;
             }
-            //return null;
         }
 
         public (List<M_CAR> car, List<M_CAR_CATEGORY> carcat) SetupViewForm()
@@ -163,18 +156,24 @@ namespace testTypeScript.Service
 
         public void AddNew(M_CAR item)
         {
-            if (item != null)
+            M_CarValidator validations = new M_CarValidator();
+            var result = validations.Validate(item);
+            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+            try
             {
-                item.DELETED = SMX.Is_Not_Deleted;
-                item.VERSION = SMX.First_Version;
-                item.CREATED_BY = SMX.User;
-                item.CREATED_DTG = DateTime.Now;
-                _context.Add<M_CAR>(item);
-                _context.SaveChanges();
+                if (item != null)
+                {
+                    item.DELETED = SMX.Is_Not_Deleted;
+                    item.VERSION = SMX.First_Version;
+                    item.CREATED_BY = SMX.User;
+                    item.CREATED_DTG = DateTime.Now;
+                    _context.Add<M_CAR>(item);
+                    _context.SaveChanges();
+                }
             }
-            else
+            catch
             {
-                throw new NotImplementedException();
+                throw new SMXException(errorMessages);
             }
         }
 

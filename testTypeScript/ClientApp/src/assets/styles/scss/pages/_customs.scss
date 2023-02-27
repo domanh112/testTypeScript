@@ -15,6 +15,11 @@
     cursor: pointer;
 }
 
+
+.allow-fixheader {
+    overflow-x: unset !important;
+}
+
 .search-focus {
     color: red !important;
 }

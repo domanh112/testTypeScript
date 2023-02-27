@@ -14,8 +14,10 @@ namespace testTypeScript.Models.Entities
         [Key]
         public int CAR_CATEGORY_ID { get; set; }
         [Required]
+        [MaxLength(256)]
         public string NAME { get; set; }
         [AllowNull]
+        [MaxLength(256)]
         public string DESCRIPTION { get; set; }
         [Required]
         public int DELETED { get; set; }

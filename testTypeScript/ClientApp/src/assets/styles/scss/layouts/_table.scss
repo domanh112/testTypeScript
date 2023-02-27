@@ -1,52 +1,60 @@
 .h-datatable {
-  table {
-    //border-collapse: collapse;
-    min-width: 100%;
-    table-layout: auto;
-    vertical-align: middle;
-    text-align: left !important;
-    position: relative !important;
-    border:1px solid #c8c8c8;
-    border-bottom: none;
-  }
-  tr > th {
-    padding: 11px 4px !important;
-    background: $base-color;
-    color: $white;
-    font-size: 13px;
-    text-align: center;
-    border-right: 1px solid #c8c8c8;
-    font-weight: 600;
-    vertical-align: middle;
-    line-height: 16px;
-    z-index: 1;
-    &:last-child {
-      border: none;
+    table {
+        //border-collapse: collapse;
+        min-width: 100%;
+        table-layout: auto;
+        vertical-align: middle;
+        text-align: left !important;
+        position: relative !important;
+        border: 1px solid $base-table-border-color;
+        border-bottom: none;
     }
-  }
-  tbody tr {
-    background: $white;
-    transition: background-color 0.2s, box-shadow 0.2s;
-    td {
-      background: inherit;
-      border-bottom: 1px solid #c8c8c8;
-      padding: 7px 3px;
-      font-size: 13px;
-      vertical-align: middle;
-      line-height: 16px;
+
+    tr > th {
+        padding: 11px 8px !important;
+        background: $base-table-background;
+        color: $base-font-color;
+        font-size: $base-font-size;
+        text-align: center;
+        border-right: 1px solid $base-table-border-color;
+        border-bottom: 1px solid $base-table-border-color;
+        font-weight: 700;
+        vertical-align: middle;
+        line-height: 16px;
+        z-index: 1;
     }
-    &:nth-child(even) {
-      background-color: #f9f9f9;
+
+    tbody tr {
+        background: $white;
+        transition: background-color 0.2s, box-shadow 0.2s;
+
+        &:hover {
+            background-color: #fff4ed;
+        }
+
+        td {
+            background: inherit;
+            border-bottom: 1px solid $base-table-background;
+            padding: 7px 3px;
+            font-size: $base-font-size;
+            vertical-align: middle;
+            line-height: 16px;
+        }
+
+        &:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        &.no-color {
+            background-color: transparent;
+        }
     }
-    &.no-color {
-      background-color: transparent;
+
+    &.small-padding {
+        tbody tr td {
+            padding: 3px;
+        }
     }
-  }
-  &.small-padding{
-    tbody tr td{
-      padding: 3px;
-    }
-  }
 }
 
 .h-datatable.layout-auto {

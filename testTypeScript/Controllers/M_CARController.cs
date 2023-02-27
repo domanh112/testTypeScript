@@ -9,11 +9,9 @@ namespace testTypeScript.Controllers
 {
 
     [Route("api/webs/M_CAR")]
-    public class M_CARController  : ControllerBase
+    public class M_CARController : ControllerBase
     {
         IM_Car_Service _CarService;
-        IM_Car_Category_Service _Car_Category_Service;
-        ResponseModel model = new ResponseModel();
 
         public M_CARController(IM_Car_Service service)
         {
@@ -108,7 +106,6 @@ namespace testTypeScript.Controllers
         public class M_CARDTO
         {
             public int? caR_ID { get; set; }
-            public int? CAR_CAT_ID { get; set; }
             public M_CAR M_CAR { get; set; }
             public List<M_CAR> lstM_CAR { get; set; }
             public List<M_CAR> m_CARs { get; set; }
