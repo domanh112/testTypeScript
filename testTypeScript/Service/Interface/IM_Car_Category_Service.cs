@@ -2,7 +2,7 @@
 using testTypeScript.Models.Entities;
 using testTypeScript.ShareComponent;
 
-namespace testTypeScript.Service
+namespace testTypeScript.Service.Interface
 {
     public interface IM_Car_Category_Service
     {

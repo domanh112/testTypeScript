@@ -3,7 +3,7 @@ using testTypeScript.Models.Entities;
 using testTypeScript.ShareComponent;
 using testTypeScript.ShareComponent.Filter;
 
-namespace testTypeScript.Service
+namespace testTypeScript.Service.Interface
 {
     public interface IM_Car_Service
     {
@@ -11,7 +11,7 @@ namespace testTypeScript.Service
         /// get list of all CAR
         /// </summary>
         /// <returns></returns>
-        (List<M_CAR> car,List<M_CAR_CATEGORY> carcat) SetupViewForm();
+        (List<M_CAR> car, List<M_CAR_CATEGORY> carcat) SetupViewForm();
 
         /// <summary>
         /// get list of all CAR where

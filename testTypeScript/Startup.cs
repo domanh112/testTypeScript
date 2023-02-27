@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using testTypeScript.Models;
 using testTypeScript.Service;
+using testTypeScript.Service.Interface;
 
 namespace testTypeScript
 {

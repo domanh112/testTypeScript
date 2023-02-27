@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using testTypeScript.Models.Entities;
-using testTypeScript.Service;
+using testTypeScript.Service.Interface;
 using testTypeScript.ShareComponent;
 using testTypeScript.ShareComponent.Filter;
 

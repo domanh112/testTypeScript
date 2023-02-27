@@ -2,7 +2,7 @@
 using testTypeScript.Models.Entities;
 using testTypeScript.ShareComponent;
 
-namespace testTypeScript.Service
+namespace testTypeScript.Service.Interface
 {
     public interface IM_Service_Order_Service
     {
