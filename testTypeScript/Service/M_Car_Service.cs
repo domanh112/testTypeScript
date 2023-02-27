@@ -179,19 +179,25 @@ namespace testTypeScript.Service
 
         public void Update(M_CAR item)
         {
-            M_CAR car = GetCARDetailsById(item.CAR_ID);
-            if (item != null)
+            M_CarValidator validations = new M_CarValidator();
+            var result = validations.Validate(item);
+            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+            try
             {
-                item.VERSION = car.VERSION + 1;
-                item.UPDATED_BY = SMX.User;
-                item.UPDATED_DTG = DateTime.Now;
+                M_CAR car = GetCARDetailsById(item.CAR_ID);
+                if (item != null)
+                {
+                    item.VERSION = car.VERSION + 1;
+                    item.UPDATED_BY = SMX.User;
+                    item.UPDATED_DTG = DateTime.Now;
 
-                _context.Update<M_CAR>(item);
-                _context.SaveChanges();
+                    _context.Update<M_CAR>(item);
+                    _context.SaveChanges();
+                }
             }
-            else
+            catch
             {
-                throw new NotImplementedException();
+                throw new SMXException(errorMessages);
             }
         }
     }
