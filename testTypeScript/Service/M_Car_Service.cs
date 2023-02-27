@@ -176,9 +176,9 @@ namespace testTypeScript.Service
 
         public void Update(M_CAR item)
         {
-            //M_CAR car = GetCARDetailsById(item.CAR_ID);
             if (item != null)
             {
+                item.VERSION = (int)(SMX.First_Version +1);
                 item.UPDATED_BY = SMX.User;
                 item.UPDATED_DTG = DateTime.Now;
 
