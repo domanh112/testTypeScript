@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using testTypeScript.Models;
 using testTypeScript.Models.Entities;
 using testTypeScript.Service.FluentValidation;
@@ -146,6 +147,7 @@ namespace testTypeScript.Service
         {
             if (item != null)
             {
+                item.VERSION += 1;
                 item.DELETED = SMX.Is_Deleted;
                 item.UPDATED_BY = SMX.User;
                 item.UPDATED_DTG = DateTime.Now;
@@ -184,10 +186,9 @@ namespace testTypeScript.Service
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             try
             {
-                M_CAR car = GetCARDetailsById(item.CAR_ID);
                 if (item != null)
                 {
-                    item.VERSION = car.VERSION + 1;
+                    item.VERSION += 1;
                     item.UPDATED_BY = SMX.User;
                     item.UPDATED_DTG = DateTime.Now;
 
