@@ -22,7 +22,7 @@ namespace testTypeScript.Models.Entities
         [MaxLength(10)]
         public string PLATE_NUMBER { get; set; }
         [Required]
-        public int PRICE { get; set; }
+        public Decimal PRICE { get; set; }
         [Required]
         public int DELETED { get; set; }
         [Required]

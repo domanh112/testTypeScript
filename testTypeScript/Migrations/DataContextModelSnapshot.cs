@@ -45,17 +45,16 @@ namespace testTypeScript.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DESCRIPTION")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("M_CAR_CATEGORYCAR_CATEGORY_ID")
-                        .HasColumnType("int");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PLATE_NUMBER")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("PRICE")
-                        .HasColumnType("int");
+                    b.Property<decimal>("PRICE")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UPDATED_BY")
                         .HasColumnType("nvarchar(max)");
@@ -70,8 +69,6 @@ namespace testTypeScript.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CAR_ID");
-
-                    b.HasIndex("M_CAR_CATEGORYCAR_CATEGORY_ID");
 
                     b.ToTable("M_CAR");
                 });
@@ -93,11 +90,13 @@ namespace testTypeScript.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DESCRIPTION")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NAME")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UPDATED_BY")
                         .HasColumnType("nvarchar(max)");
@@ -136,13 +135,16 @@ namespace testTypeScript.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CUSTOMER_NAME")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<int>("DELETED")
                         .HasColumnType("int");
 
                     b.Property<string>("DESCRIPTION")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("ORDER_DURATION")
                         .HasColumnType("int");
@@ -199,11 +201,13 @@ namespace testTypeScript.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DESCRIPTION")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("STATUS_NAME")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UPDATED_BY")
                         .HasColumnType("nvarchar(max)");
@@ -236,11 +240,13 @@ namespace testTypeScript.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DESCRIPTION")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NAME")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("UPDATED_BY")
                         .HasColumnType("nvarchar(max)");
@@ -254,18 +260,6 @@ namespace testTypeScript.Migrations
                     b.HasKey("TIME_CATEGORY_ID");
 
                     b.ToTable("M_TIME_CATEGORY");
-                });
-
-            modelBuilder.Entity("testTypeScript.Models.Entities.M_CAR", b =>
-                {
-                    b.HasOne("testTypeScript.Models.Entities.M_CAR_CATEGORY", null)
-                        .WithMany("M_CAR")
-                        .HasForeignKey("M_CAR_CATEGORYCAR_CATEGORY_ID");
-                });
-
-            modelBuilder.Entity("testTypeScript.Models.Entities.M_CAR_CATEGORY", b =>
-                {
-                    b.Navigation("M_CAR");
                 });
 #pragma warning restore 612, 618
         }

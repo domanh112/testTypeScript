@@ -3,18 +3,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace testTypeScript.Migrations
 {
-    public partial class init : Migration
+    public partial class INIT : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "M_CAR",
+                columns: table => new
+                {
+                    CAR_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CATEGORY_ID = table.Column<int>(type: "int", nullable: false),
+                    COLOR = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PLATE_NUMBER = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    PRICE = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DELETED = table.Column<int>(type: "int", nullable: false),
+                    VERSION = table.Column<int>(type: "int", nullable: false),
+                    CREATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CREATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UPDATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UPDATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CATEGORY_NAME = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_M_CAR", x => x.CAR_ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "M_CAR_CATEGORY",
                 columns: table => new
                 {
                     CAR_CATEGORY_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NAME = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DESCRIPTION = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NAME = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     DELETED = table.Column<int>(type: "int", nullable: false),
                     VERSION = table.Column<int>(type: "int", nullable: false),
                     CREATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -40,18 +65,18 @@ namespace testTypeScript.Migrations
                     PLAN_END_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ACTUAL_START_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ACTUAL_END_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CUSTOMER_NAME = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DESCRIPTION = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CUSTOMER_NAME = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     STATUS = table.Column<int>(type: "int", nullable: false),
-                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PLATE_NUMBER = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PRICE = table.Column<int>(type: "int", nullable: false),
                     DELETED = table.Column<int>(type: "int", nullable: false),
                     VERSION = table.Column<int>(type: "int", nullable: false),
                     CREATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CREATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UPDATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UPDATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UPDATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PLATE_NUMBER = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PRICE = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,8 +89,8 @@ namespace testTypeScript.Migrations
                 {
                     STATUS_CODE = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    STATUS_NAME = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DESCRIPTION = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    STATUS_NAME = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     DELETED = table.Column<int>(type: "int", nullable: false),
                     VERSION = table.Column<int>(type: "int", nullable: false),
                     CREATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -84,8 +109,8 @@ namespace testTypeScript.Migrations
                 {
                     TIME_CATEGORY_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NAME = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DESCRIPTION = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NAME = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    DESCRIPTION = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     DELETED = table.Column<int>(type: "int", nullable: false),
                     VERSION = table.Column<int>(type: "int", nullable: false),
                     CREATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -97,49 +122,15 @@ namespace testTypeScript.Migrations
                 {
                     table.PrimaryKey("PK_M_TIME_CATEGORY", x => x.TIME_CATEGORY_ID);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "M_CAR",
-                columns: table => new
-                {
-                    CAR_ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CATEGORY_ID = table.Column<int>(type: "int", nullable: false),
-                    COLOR = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DESCRIPTION = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PLATE_NUMBER = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PRICE = table.Column<int>(type: "int", nullable: false),
-                    DELETED = table.Column<int>(type: "int", nullable: false),
-                    VERSION = table.Column<int>(type: "int", nullable: false),
-                    CREATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CREATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UPDATED_BY = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UPDATED_DTG = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CATEGORY_NAME = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    M_CAR_CATEGORYCAR_CATEGORY_ID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_M_CAR", x => x.CAR_ID);
-                    table.ForeignKey(
-                        name: "FK_M_CAR_M_CAR_CATEGORY_M_CAR_CATEGORYCAR_CATEGORY_ID",
-                        column: x => x.M_CAR_CATEGORYCAR_CATEGORY_ID,
-                        principalTable: "M_CAR_CATEGORY",
-                        principalColumn: "CAR_CATEGORY_ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_M_CAR_M_CAR_CATEGORYCAR_CATEGORY_ID",
-                table: "M_CAR",
-                column: "M_CAR_CATEGORYCAR_CATEGORY_ID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "M_CAR");
+
+            migrationBuilder.DropTable(
+                name: "M_CAR_CATEGORY");
 
             migrationBuilder.DropTable(
                 name: "M_SERVICE_ORDER");
@@ -149,9 +140,6 @@ namespace testTypeScript.Migrations
 
             migrationBuilder.DropTable(
                 name: "M_TIME_CATEGORY");
-
-            migrationBuilder.DropTable(
-                name: "M_CAR_CATEGORY");
         }
     }
 }
